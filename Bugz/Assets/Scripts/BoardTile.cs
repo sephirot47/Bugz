@@ -28,6 +28,16 @@ public class BoardTile
         mark = go.GetComponent<BoardMark>();
     }
 
+    public void OnUnSelected()
+    {
+        mark.ChangeType(BoardMark.MarkType.None);
+    }
+
+    public void OnSelected()
+    {
+        mark.ChangeType(BoardMark.MarkType.Selection);
+    }
+
     public Vector2 GetTilePos() { return tilePos; }
     public BoardMark GetMark() { return mark; }
     public Bug GetBug() { return bug; }
