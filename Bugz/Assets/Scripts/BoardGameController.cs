@@ -50,7 +50,9 @@ public class BoardGameController
                 int movementRange = bug.GetMovementRange();
 
                 //Mark the board with the tiles the selected bug can move(travel) to
-                board.GetMarkManager().MarkMovementRangeOnTheBoard(tile.GetTilePos(), movementRange);
+                Vector2 selectedTilePos = tile.GetTilePos();
+                List<Vector2> bugPossibleMoves = bug.GetPossibleMoves();
+                board.GetMarkManager().MarkMovementRangeOnTheBoard(selectedTilePos, bugPossibleMoves);
             }
         }
     }

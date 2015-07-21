@@ -14,16 +14,22 @@ public class BoardMarkManager
     }
 
     //Given an origin tilePos and a movementRange, marks the board(Good/Bad) with the tiles you can travel to from the origin with the given movementRange
-    public void MarkMovementRangeOnTheBoard(Vector2 originTilePos, int movementRange)
+    public void MarkMovementRangeOnTheBoard(Vector2 originTilePos, List<Vector2> possibleMoves)
     {
-        for (int i = -movementRange; i <= movementRange; ++i)
+        foreach(Vector2 relativeDisplacement in possibleMoves)
         {
-            if (i == 0) continue;
-            BoardTile tile = board.GetTile(originTilePos + new Vector2(i, 0)); //Extend on the horizontal axis
-            MarkMovementRangeOnTile(tile);
+            BoardTile tile = board.GetTile(originTilePos + relativeDisplacement); //Extend on the horizontal axis
+            MarkMovementRangeOnTile(tile); //Mark green if there's no obstacle, red otherwise
+        }
+    }
 
-            tile = board.GetTile(originTilePos + new Vector2(0, i)); //Extend on the vertical axis
-            MarkMovementRangeOnTile(tile);
+    //Updates a mark on the tile, marking it as Good if it's empty, as Bad otherwise 
+    public void MarkMovementRangeOnTile(BoardTile tile)
+    {
+        if (tile != null) //If pos is not outside of the board, hence theres a tile
+        {
+            if (tile.IsEmpty()) tile.SetPermanentMarkType(BoardMark.MarkType.Good);
+            else tile.SetPermanentMarkType(BoardMark.MarkType.Bad);
         }
     }
 
@@ -40,13 +46,4 @@ public class BoardMarkManager
         }
     }
 
-    //Updates a mark on the tile, marking it as Good if it's empty, as Bad otherwise 
-    public void MarkMovementRangeOnTile(BoardTile tile)
-    {
-        if (tile != null) //If pos is not outside of the board, hence theres a tile
-        {
-            if (tile.IsEmpty()) tile.SetPermanentMarkType(BoardMark.MarkType.Good);
-            else tile.SetPermanentMarkType(BoardMark.MarkType.Bad);
-        }
-    }
 }
