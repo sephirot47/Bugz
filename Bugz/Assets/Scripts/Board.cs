@@ -10,9 +10,10 @@ public class Board : MonoBehaviour
     private List<List<BoardTile>> tiles;
 
     private BoardGameController gameController;
+    private BoardMarkManager markManager;
 
     [SerializeField]
-    private BoardStatsPanel statsPanel;
+    private BoardCanvasManager canvasManager;
 
     void Awake()
     {
@@ -24,25 +25,27 @@ public class Board : MonoBehaviour
 
 	void Start () 
     {
-        FillTiles();
-        gameController = new BoardGameController(this);
+        FillTiles();                                    //Fill the tiles matrix with new BoardTiles()
+        gameController = new BoardGameController(this); //Create the game controller
+        markManager = new BoardMarkManager(this);       //Create the mark manager (utils to mark the board)
 	}
 	
 	void Update () 
     {
-	    if(Input.GetMouseButtonDown(0)) //Selection of a tile
+	    if(Input.GetMouseButtonDown(0)) //Handling the selection of a tile
         {
             Vector3 touchPoint = GetTouchWorldPoint();
-            if (touchPoint != Vector3.zero) //Touched a tile
+            if (touchPoint != Vector3.zero) //When a tile is touched
             {
                 Vector2 tilePos = GetTilePos(touchPoint);
                 BoardTile tile = GetTile(tilePos);
-                gameController.OnTileSelected(tile);
+                gameController.OnTileSelected(tile); //Notify the gameController which tile has been selected
             }
         }
 	}
 
-    void FillTiles() //Fill the tiles matrix with new BoardTiles()
+    //Fill the tiles matrix with new BoardTiles()
+    void FillTiles() 
     {
         tiles = new List<List<BoardTile>>();
         for (int i = 0; i < HeightInTiles; ++i)
@@ -72,25 +75,35 @@ public class Board : MonoBehaviour
         return Vector3.zero;
     }
 
-    private BoardTile GetTile(Vector2 tilePos) //Gets the tile in tilePos tile position
+    //Gets the tile in tilePos tile position
+    public BoardTile GetTile(Vector2 tilePos) 
     {
-        return tiles[(int)tilePos.y][(int)tilePos.x];
+        return OutOfBoard(tilePos) ? null : tiles[(int)tilePos.y][(int)tilePos.x];
     }
 
-    private Vector2 GetTilePos(Vector3 worldPos) //Gets the tilePosition that corresponds to the world position worldPos
+    //Is the tilePos out of the board boundaries?
+    public bool OutOfBoard(Vector2 tilePos)
+    {
+        return tilePos.x < 0 || tilePos.x >= Board.WidthInTiles || tilePos.y < 0 || tilePos.y >= Board.HeightInTiles;
+    }
+
+    //Gets the tilePosition that corresponds to the world position worldPos (returns (0,0), (0,1), (1,0), (1,1), (1,2), etc )
+    private Vector2 GetTilePos(Vector3 worldPos) 
     {
         float x = Mathf.Floor( (worldPos.x -  (transform.position.x - Board.Width / 2.0f))   / Board.TileWidth);
         float y = Mathf.Floor( (worldPos.z - (transform.position.z - Board.Height / 2.0f))  / Board.TileHeight);
         return new Vector2(x, y);
     }
 
-    private Vector3 GetWorldPos(Vector2 tilePos) //Gets the CENTER world position of the tile at tilePos
+    //Gets the CENTER world position of the tile at tilePos (returns world coordinates for the CENTER of the tile)
+    private Vector3 GetWorldPos(Vector2 tilePos) 
     {
         return new Vector3(transform.position.x - Board.Width / 2 + tilePos.x * TileWidth + TileWidth / 2.0f, 
                            transform.position.y + GetComponent<MeshRenderer>().bounds.size.y / 2 * 1.03f, 
                            transform.position.z - Board.Height / 2 + tilePos.y * TileHeight + TileHeight / 2.0f);
     }
 
-    public BoardGameController GetGameController() { return gameController; }
-    public BoardStatsPanel GetStatsPanel() { return statsPanel; }
+    public BoardGameController GetGameController() { return gameController; } //Returns the gameController
+    public BoardMarkManager GetMarkManager() { return markManager; }          //Returns the markManager
+    public BoardCanvasManager GetCanvasManager() { return canvasManager; }             //Return the statsPanel
 }
