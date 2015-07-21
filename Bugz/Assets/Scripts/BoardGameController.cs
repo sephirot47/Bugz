@@ -27,6 +27,8 @@ public class BoardGameController
     //Called when the tile 'tile' is selected
     public void OnTileSelected(BoardTile tile)
     {
+        board.GetCanvasManager().OnTileSelected(tile);
+
         if (selectedTile == tile) //When clicking on a selected tile, unselect it
         {
             board.GetMarkManager().ClearBoardMarks();
@@ -44,6 +46,7 @@ public class BoardGameController
             selectedBug = selectedTile.GetBug();
             board.GetCanvasManager().PopulateStatsTexts(selectedBug); //Populate the texts on the StatsPanel
 
+            //THERE'S A BUG IN THE SELECTED TILE!
             if (!tile.IsEmpty()) //If the tile isnt empty, do something with the bug
             {
                 Bug bug = tile.GetBug();

@@ -12,14 +12,71 @@ public class BoardCanvasManager : MonoBehaviour
     [SerializeField]
     private Button buttonMove, buttonAttack, buttonDefense, buttonConfirm, buttonCancel;
 
-	void Start () 
+	void Start ()
     {
+        GoToMainActionMenu();
+        HideAllButtons();
         PopulateStatsTexts(null);
 	}
 	
-	void Update () {
-	
+	void Update ()
+    {
 	}
+
+    public void OnTileSelected(BoardTile tile)
+    {
+        if(!tile.IsEmpty())
+        {
+            GoToMainActionMenu();
+        }
+        else
+        {
+            HideAllButtons();
+        }
+    }
+    
+    public void GoToMainActionMenu()
+    {
+        HideAllButtons();
+        buttonMove.gameObject.SetActive(true);
+        buttonAttack.gameObject.SetActive(true);
+        buttonDefense.gameObject.SetActive(true);
+    }
+
+    public void OnButtonMovePressed()
+    {
+
+    }
+
+    public void OnButtonAttackPressed()
+    {
+
+    }
+
+    public void OnButtonDefensePressed()
+    {
+
+    }
+
+    public void OnButtonCancelPressed()
+    {
+        GoToMainActionMenu();
+    }
+
+    public void OnButtonConfirmPressed()
+    {
+        GoToMainActionMenu();
+    }
+
+
+    public void HideAllButtons()
+    {
+        buttonMove.gameObject.SetActive(false);
+        buttonAttack.gameObject.SetActive(false);
+        buttonDefense.gameObject.SetActive(false);
+        buttonConfirm.gameObject.SetActive(false);
+        buttonCancel.gameObject.SetActive(false);
+    }
 
     //Populate the stats texts with the stats of the bug passed as parameter
     public void PopulateStatsTexts(Bug bug)

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 //This class has useful functions of marking the Board.
-public class BoardMarkManager
+public class BoardMarkManager 
 {
     private Board board; //A reference to the game board, for easy access
 

@@ -42,17 +42,11 @@ public class Bug : MonoBehaviour
     // For example: a list like this: { (0,1), (0,2), (0,-1) },  means the bug can move upwards one or two positions [(0,1), (0,2)] and downwards just one position(0,-1)
     public List<Vector2> GetPossibleMoves()
     {
-        Debug.Log("Possible moves");
         List<Vector2> possibleMoves = new List<Vector2>();
         for(int i = 1; i <= movementRange; ++i)
         {
-            foreach (Vector2 dir in possibleDirections)
-            {
-                possibleMoves.Add(dir * i);
-                Debug.Log(dir * i);
-            }
+            foreach (Vector2 dir in possibleDirections) possibleMoves.Add(dir * i);
         }
-        Debug.Log(":::::::::::");
         return possibleMoves;
     }
 
