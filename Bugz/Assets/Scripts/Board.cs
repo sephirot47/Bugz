@@ -9,7 +9,9 @@ public class Board : MonoBehaviour
 
     private List<List<BoardTile>> tiles;
 
+    [SerializeField]
     private BoardGameController gameController;
+    [SerializeField]
     private BoardMarkManager markManager;
 
     [SerializeField]
@@ -26,8 +28,6 @@ public class Board : MonoBehaviour
 	void Start () 
     {
         FillTiles();                                    //Fill the tiles matrix with new BoardTiles()
-        gameController = new BoardGameController(this); //Create the game controller
-        markManager = new BoardMarkManager(this);       //Create the mark manager (utils to mark the board)
 	}
 	
 	void Update () 
@@ -103,7 +103,5 @@ public class Board : MonoBehaviour
                            transform.position.z - Board.Height / 2 + tilePos.y * TileHeight + TileHeight / 2.0f);
     }
 
-    public BoardGameController GetGameController() { return gameController; } //Returns the gameController
     public BoardMarkManager GetMarkManager() { return markManager; }          //Returns the markManager
-    public BoardCanvasManager GetCanvasManager() { return canvasManager; }             //Return the statsPanel
 }

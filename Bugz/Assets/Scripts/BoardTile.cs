@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BoardTile : MonoBehaviour
+public class BoardTile
 {
     private Bug bug;
     private BoardMark mark;

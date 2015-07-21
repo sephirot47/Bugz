@@ -4,14 +4,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 //This class has useful functions of marking the Board.
-public class BoardMarkManager 
+public class BoardMarkManager : MonoBehaviour
 {
+    [SerializeField]
     private Board board; //A reference to the game board, for easy access
-
-    public BoardMarkManager(Board board)
-    {
-        this.board = board;
-    }
 
     //Given an origin tilePos and a movementRange, marks the board(Good/Bad) with the tiles you can travel to from the origin with the given movementRange
     public void MarkMovementRangeOnTheBoard(Vector2 originTilePos, List<Vector2> possibleMoves)

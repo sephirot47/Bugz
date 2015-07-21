@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class BoardCanvasManager : MonoBehaviour
+public class BoardCanvasManager : MonoBehaviour, ITileListener
 {
     private static readonly string None = "-";
 
@@ -27,12 +27,20 @@ public class BoardCanvasManager : MonoBehaviour
     {
         if(!tile.IsEmpty())
         {
-            GoToMainActionMenu();
+            GoToMainActionMenu(); //Change the menu to Move, Attack, Defense, etc
+
+            Bug selectedBug = tile.GetBug();
+            PopulateStatsTexts(selectedBug); //Populate the texts on the StatsPanel
         }
         else
         {
             HideAllButtons();
         }
+    }
+
+    public void OnTileUnselected(BoardTile tile)
+    {
+        HideAllButtons();
     }
     
     public void GoToMainActionMenu()
