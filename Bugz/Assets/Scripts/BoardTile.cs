@@ -21,7 +21,7 @@ public class BoardTile
     //Called when you want to create a bug in this tile
     public void CreateBug() 
     {
-        int rand = Random.Range(1, 4);
+        int rand = Random.Range(0, 4);
         string resPath = "Bugs/Bug" + rand.ToString(); //Create a random bug (Bug0||Bug1||Bug2||Bug3)
         GameObject go = GameObject.Instantiate(Resources.Load(resPath), worldPos, Quaternion.identity) as GameObject;
         bug = go.GetComponent<Bug>();
