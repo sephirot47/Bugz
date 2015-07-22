@@ -40,10 +40,7 @@ public class BoardGameController : MonoBehaviour
         {
             selectedTile.OnUnSelected();
             selectedTile = null;
-
-            //Spread the event
-            List<ITileListener> tileListeners = Utils.GetAll<ITileListener>();
-            foreach (ITileListener tileListener in tileListeners) tileListener.OnTileUnselected(tile);
+            board.GetCanvasManager().OnTileSelected(selectedTile);
         }
         else //Tile selected for the first time
         {
@@ -62,9 +59,7 @@ public class BoardGameController : MonoBehaviour
                 }
             }
 
-            //Spread the event
-            List<ITileListener> tileListeners = Utils.GetAll<ITileListener>();
-            foreach (ITileListener tileListener in tileListeners) tileListener.OnTileSelected(tile);
+            board.GetCanvasManager().OnTileUnSelected(selectedTile);
         }
     }
 

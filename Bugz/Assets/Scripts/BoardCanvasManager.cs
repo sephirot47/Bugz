@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class BoardCanvasManager : MonoBehaviour, ITileListener
+public class BoardCanvasManager : MonoBehaviour
 {
     private static readonly string None = "-";
 
@@ -57,7 +57,7 @@ public class BoardCanvasManager : MonoBehaviour, ITileListener
         }
     }
 
-    public void OnTileUnselected(BoardTile tile)
+    public void OnTileUnSelected(BoardTile tile)
     {
         HideAllButtons();
     }

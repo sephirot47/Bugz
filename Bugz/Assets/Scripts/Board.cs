@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
 
     [SerializeField]
     private BoardGameController gameController;
+
     [SerializeField]
     private BoardMarkManager markManager;
 
@@ -113,5 +114,6 @@ public class Board : MonoBehaviour
     }
 
     public BoardTile GetSelectedTile() { return gameController.GetSelectedTile(); }
-    public BoardMarkManager GetMarkManager() { return markManager; }          //Returns the markManager
+    public BoardMarkManager GetMarkManager() { return markManager; } 
+    public BoardCanvasManager GetCanvasManager() { return canvasManager; }
 }
