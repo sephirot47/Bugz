@@ -40,7 +40,7 @@ public class BoardGameController : MonoBehaviour
         {
             selectedTile.OnUnSelected();
             selectedTile = null;
-            board.GetCanvasManager().OnTileSelected(selectedTile);
+            board.GetCanvasManager().OnTileUnSelected(tile);
         }
         else //Tile selected for the first time
         {
@@ -59,7 +59,7 @@ public class BoardGameController : MonoBehaviour
                 }
             }
 
-            board.GetCanvasManager().OnTileUnSelected(selectedTile);
+            board.GetCanvasManager().OnTileSelected(tile);
         }
     }
 
