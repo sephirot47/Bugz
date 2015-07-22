@@ -61,7 +61,11 @@ public class BoardTile
         mark.SetType(type);
     }
 
+    public BoardMark.MarkType GetCurrentMarkType() { return mark.GetType(); }
+    public BoardMark.MarkType GetPermanentMarkType() { return permanentMarkType;  }
+
     public Vector2 GetTilePos() { return tilePos; }
+    public void SetBug(Bug bug) { this.bug = bug; }
     public Bug GetBug() { return bug; }
     public bool IsEmpty() { return bug == null; }
 }

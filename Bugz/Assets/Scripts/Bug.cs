@@ -37,6 +37,11 @@ public class Bug : MonoBehaviour
 
     }
 
+    public void MoveTo(Vector3 worldPos)
+    {
+        transform.position = worldPos;
+    }
+
     // Returns an array of Vector2, representing the relative displacement from the bug's tile to 
     // all the tiles the bug can possibly move to (without taking into account any collision with another bugs)
     // For example: a list like this: { (0,1), (0,2), (0,-1) },  means the bug can move upwards one or two positions [(0,1), (0,2)] and downwards just one position(0,-1)

@@ -27,7 +27,7 @@ public class Board : MonoBehaviour
 
 	void Start () 
     {
-        FillTiles();                                    //Fill the tiles matrix with new BoardTiles()
+        FillTiles(); //Fill the tiles matrix with new BoardTiles()
 	}
 	
 	void Update () 
@@ -57,7 +57,7 @@ public class Board : MonoBehaviour
                 BoardTile tile = new BoardTile(tilePos, GetWorldPos(tilePos)); 
                 tileRow.Add(tile);
 
-                if (UnityEngine.Random.Range(1, 11) > 9) tile.CreateBug(); //Put some random bugs around
+                if (UnityEngine.Random.Range(1, 11) > 7) tile.CreateBug(); //Put some random bugs around
             }
             tiles.Add(tileRow);
         }
@@ -88,7 +88,7 @@ public class Board : MonoBehaviour
     }
 
     //Gets the tilePosition that corresponds to the world position worldPos (returns (0,0), (0,1), (1,0), (1,1), (1,2), etc )
-    private Vector2 GetTilePos(Vector3 worldPos) 
+    public Vector2 GetTilePos(Vector3 worldPos) 
     {
         float x = Mathf.Floor( (worldPos.x -  (transform.position.x - Board.Width / 2.0f))   / Board.TileWidth);
         float y = Mathf.Floor( (worldPos.z - (transform.position.z - Board.Height / 2.0f))  / Board.TileHeight);
@@ -96,12 +96,22 @@ public class Board : MonoBehaviour
     }
 
     //Gets the CENTER world position of the tile at tilePos (returns world coordinates for the CENTER of the tile)
-    private Vector3 GetWorldPos(Vector2 tilePos) 
+    public Vector3 GetWorldPos(Vector2 tilePos) 
     {
         return new Vector3(transform.position.x - Board.Width / 2 + tilePos.x * TileWidth + TileWidth / 2.0f, 
                            transform.position.y + GetComponent<MeshRenderer>().bounds.size.y / 2 * 1.03f, 
                            transform.position.z - Board.Height / 2 + tilePos.y * TileHeight + TileHeight / 2.0f);
     }
 
+    //Returns the tile where a bug is placed
+    public BoardTile GetBugTile(Bug bug)
+    {
+        for (int i = 0; i < HeightInTiles; ++i)
+            for (int j = 0; j < WidthInTiles; ++j)
+                if (tiles[i][j].GetBug() == bug) return tiles[i][j];
+        return null;
+    }
+
+    public BoardTile GetSelectedTile() { return gameController.GetSelectedTile(); }
     public BoardMarkManager GetMarkManager() { return markManager; }          //Returns the markManager
 }
